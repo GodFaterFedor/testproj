@@ -6,24 +6,22 @@ class Man(models.Model):
     id = models.IntegerField(primary_key=True)  
     name = models.CharField(max_length=32)
     follow_ids = models.TextField()
-
-    def following(self): 
-        g = tuple( (i, i) for i in self.follow_ids.split())
-        return g
+    followings = models.ManyToManyField(      
+        'self', 
+        blank = True,
+        symmetrical = False,
+        related_name = 'followers'     
+    )
 
     def count_followings(self):
-        return len(self.follow_ids.split())
+        return self.followings.count()
 
 
     def count_followers(self):
-        count = 0
-        for man in Man.objects.all():
-            count += man.follow_ids.split().count(str(self.id))
-        return count
+        return self.followers.count()
 
     def __str__(self):
         return self.name
 
     class Meta:
-        managed = False
         db_table = 'man_man'
