@@ -5,7 +5,8 @@ from django.db import models
 class Man(models.Model):
     id = models.IntegerField(primary_key=True)  
     name = models.CharField(max_length=32)
-    follow_ids = models.TextField()
+    #follow_ids = models.TextField()
+
     followings = models.ManyToManyField(      
         'self', 
         blank = True,
