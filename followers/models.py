@@ -10,7 +10,7 @@ class Man(models.Model):
         'self', 
         blank = True,
         symmetrical = False,
-        related_name = 'followers'     
+        related_name = 'followers',   
     )
 
     def count_followings(self):
